@@ -102,7 +102,10 @@ function operate(a, b, operator, buttonPressed, typeOfButton) {
             break;
         case "operate": 
             if ((a !== 0 && !a) || (b !== 0 && !b) || !operator) return [a, operator, b]
-            if (b === 0 && operator === "/") return [a, operator, b]
+            if (b == 0 && operator === "/") {
+                alert("La division por cero no esta definida cambie el valor de el segundo numero por un valor distinto de 0")
+                return [a, operator, b]
+            }
             result =  operations[operator](a, b)
             if (result === Math.trunc(result)) buttonsAllowed["."] = "floating";
             else buttonsAllowed["."] = false;
