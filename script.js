@@ -1,9 +1,14 @@
+function Round(a) {
+    let result = Number(a.toFixed(2))
+    return result;
+}
+
 
 const operations = {
-    "+": (a,b) => Number(a) + Number(b),
-    "-": (a,b) => Number(a) - Number(b),
-    "*": (a,b) => Number(a) * Number(b),
-    "/": (a,b) => Number(a) / Number(b),
+    "+": (a,b) => Round(Number(a) + Number(b)),
+    "-": (a,b) => Round(Number(a) - Number(b)),
+    "*": (a,b) => Round(Number(a) * Number(b)),
+    "/": (a,b) => Round(Number(a) / Number(b)),
 };
 
 const keyboardAllowed = {
@@ -51,7 +56,6 @@ const buttonsAllowed = {
 
 function operate(a, b, operator, buttonPressed, typeOfButton) {
     let result;
-    console.log(typeOfButton)
     
     switch (typeOfButton) {
         case "number":
@@ -97,6 +101,8 @@ function operate(a, b, operator, buttonPressed, typeOfButton) {
             return [a, operator, b.slice(0, -1)]
             break;
         case "operate": 
+            if ((a !== 0 && !a) || (b !== 0 && !b) || !operator) return [a, operator, b]
+            if (b === 0 && operator === "/") return [a, operator, b]
             result =  operations[operator](a, b)
             if (result === Math.trunc(result)) buttonsAllowed["."] = "floating";
             else buttonsAllowed["."] = false;
